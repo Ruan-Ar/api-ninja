@@ -1,29 +1,30 @@
 package com.projeto.CadastroDeNinja.ninja.model;
 
+import com.projeto.CadastroDeNinja.missoes.model.MissoesModel;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Setter
-@Getter
 @Entity
+@Data
 @Table(name = "tb_cadastro")
+@AllArgsConstructor
+@NoArgsConstructor
 public class NinjaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
     private String email;
+
     private int idade;
 
-    public NinjaModel() {
-    }
-
-    public NinjaModel(int idade, String email, String nome) {
-        this.idade = idade;
-        this.email = email;
-        this.nome = nome;
-    }
+    @ManyToOne
+    @JoinColumn(name = "missoes_id") //chave estrangeira
+    private MissoesModel missoes;
 
 }
